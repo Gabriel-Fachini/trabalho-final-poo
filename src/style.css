@@ -1,0 +1,113 @@
+@import url('https://fonts.googleapis.com/css2?family=Inria+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+
+body {
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  background-color: #6882b1;
+  font-family: "Inria Sans";
+}
+
+nav {
+  width: 100vw;
+  height: 70px;
+  background-color: rgb(207, 207, 207);
+  padding: 0 200px 0 200px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 6px 6px rgba(0, 0, 0, 0.15);
+}
+
+.nav-buttons-container{
+  width: 380px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-button{
+  /* width: 150px;
+  height: 40px; */
+  padding: 10px 20px;
+  /* background-color: #596F99; */
+  text-align: center;
+  font-size: 18px;
+  font-weight: 400;
+  border-radius: 6px;
+  color: #0d1018;
+  cursor: pointer;
+  transition: ease-in 200ms;
+}
+
+.nav-button:hover {
+  background-color: #596F99;
+  transition: 200ms ease-in;
+  color: white;
+}
+
+main {
+  width: 100vw;
+  height: calc(100vh - 70px);
+  background-color: #232835;
+  padding: 0 200px 0 200px;
+  box-sizing: border-box;
+  display: flex;
+}
+
+.urna-container{
+  width: 50%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.urna {
+  width: 95%;
+  transition: ease-in 300ms;
+}
+
+.text-container {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  justify-content: center;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+h1 {
+  color:rgb(255, 255, 255);
+  margin: 0;
+  font-size: 64px;
+}
+
+p {
+  color:rgb(184, 184, 184);
+  font-size: 24px;
+  margin: 0;
+  animation-delay: 300ms;
+}
+
+.botao-votar {
+  margin-top: 20px;
+  width: fit-content;
+  padding: 10px 60px;
+  border-radius: 6px;
+  background-color: #596F99;
+  font-size: 32px;
+  font-weight: 700;
+  color: white;
+  cursor: pointer;
+  transition: 300ms ease-in;
+  animation-delay: 800ms;
+}
+
+.botao-votar:hover {
+  background-color: #00BF69;
+  transition: 300ms ease-in;
+}
