@@ -1,11 +1,9 @@
-from ctypes import alignment
-from tkinter import CENTER
 import PySimpleGUI as sg
 import random
 import datetime
 
 
-GAMEPLAY_SIZE = (1000, 600)
+GAMEPLAY_SIZE = (1150, 500)
 BAT_SIZE = (20, 110)
 STARTING_BALL_POSITION = (327, 200)
 BALL_RADIUS = 12
@@ -179,9 +177,10 @@ def simulador():
 
     main_menu_layout = [[sg.Text("Simulador de Urna Eletrônica", font="Courier 40")],
                         [sg.Text("", font="Courier 8")],
-                        [sg.Text("-- Instructions --", font="Courier 25")],
-                        [sg.Text("Left player controls: W and S", font="Courier 12")],
-                        [sg.Text("Right player controls: \u2191 and \u2193", font="Courier 12")],
+                        [sg.Text("-- Intruções de uso --", font="Courier 25")],
+                        [sg.Text("Aperte em 'URNA REAL' para simular uma votação com 30 pessoas", font="Courier 12")],
+                        [sg.Text("Aperte em 'SIMULAÇÃO DE VOTOS' para simular votos de 5 cidades diferentes aleatoriamente de maneira automática", font="Courier 12")],
+                        [sg.Text("Aperte em 'QUIZ' para responder a um quiz que, ao final, indicará qual o candidato que mais tem a ver com você", font="Courier 12")],
                         [sg.Text("Escape to pause game", font="Courier 12")],
                         [sg.Text("", font="Courier 8")],
                         [sg.Text("Winner is first to 10 points", font="Courier 12")],
