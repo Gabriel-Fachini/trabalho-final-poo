@@ -2,11 +2,10 @@ import PySimpleGUI as sg
 import random
 import datetime
 
-
-GAMEPLAY_SIZE = (1150, 500)
+GAMEPLAY_SIZE = (1350, 500)
 BAT_SIZE = (20, 110)
-STARTING_BALL_POSITION = (327, 200)
-BALL_RADIUS = 12
+STARTING_BALL_POSITION = (675, 250)
+BALL_RADIUS = 15
 BACKGROUND_COLOR = 'black'
 BALL_COLOR = 'green1'
 BALL_SPEED = 300
@@ -21,6 +20,19 @@ player2_up_keycode = UP_ARROW
 player2_down_keycode = DOWN_ARROW
 
 num_rounds = 10
+
+class Candidato:
+    def __init__(self, nome, partido, idade):
+        self.nome = nome
+        self.partido = partido
+        self.idade = idade
+        self.nmr_de_votos = 0
+        
+    def get_votos(self):
+        return self.nmr_de_votos
+    
+    def __str__(self):
+        pass
 
 
 class Bat:
@@ -176,17 +188,20 @@ def simulador():
               [sg.Button('Voltar ao Menu', key="-MENU-")]]
 
     main_menu_layout = [[sg.Text("Simulador de Urna Eletrônica", font="Courier 40")],
-                        [sg.Text("", font="Courier 8")],
+                        [sg.Text("", font="Courier 12")],
                         [sg.Text("-- Intruções de uso --", font="Courier 25")],
-                        [sg.Text("Aperte em 'URNA REAL' para simular uma votação com 30 pessoas", font="Courier 12")],
-                        [sg.Text("Aperte em 'SIMULAÇÃO DE VOTOS' para simular votos de 5 cidades diferentes aleatoriamente de maneira automática", font="Courier 12")],
-                        [sg.Text("Aperte em 'QUIZ' para responder a um quiz que, ao final, indicará qual o candidato que mais tem a ver com você", font="Courier 12")],
-                        [sg.Text("Escape to pause game", font="Courier 12")],
+                        [sg.Text("", font="Courier 12")],
+                        [sg.Text("Aperte em 'URNA REAL' para simular uma votação com 30 pessoas", font="Courier 15")],
+                        [sg.Text("", font="Courier 12")],
+                        [sg.Text("Aperte em 'SIMULAÇÃO DE VOTOS' para simular votos de 5 cidades diferentes aleatoriamente de maneira automática", font="Courier 15")],
+                        [sg.Text("", font="Courier 12")],
+                        [sg.Text("Aperte em 'QUIZ' para responder a um quiz que, ao final, indicará qual o candidato que mais tem a ver com você", font="Courier 15")],
+                        [sg.Text("", font="Courier 12")],
                         [sg.Text("", font="Courier 8")],
-                        [sg.Text("Winner is first to 10 points", font="Courier 12")],
-                        [sg.Text("", font="Courier 8")],
-                        [sg.Button("Começar", key='-START-', font="Courier 24"),
-                        sg.Button("Sair", key='-QUIT-', font="Courier 24")]]
+                        [sg.Button("URNA REAL", key='-START-', font="Courier 24"),
+                        sg.Button("SIMULAÇÃO DE VOTOS", key='-SIMULA_VOTOS-', font="Courier 24"),
+                        sg.Button("QUIZ", key='-QUIZ-', font="Courier 24"),
+                        sg.Button("SAIR", key='-QUIT-', font="Courier 24")]]
 
     layout = [[sg.pin(sg.Column(main_menu_layout, key='-MAIN_MENU-', size=GAMEPLAY_SIZE, element_justification='center')),
                sg.pin(sg.Column(inner_layout, key='-GAME-', visible=False))]]
