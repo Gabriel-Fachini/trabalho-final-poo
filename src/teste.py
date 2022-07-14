@@ -21,19 +21,6 @@ player2_down_keycode = DOWN_ARROW
 
 num_rounds = 10
 
-class Candidato:
-    def __init__(self, nome, partido, idade):
-        self.nome = nome
-        self.partido = partido
-        self.idade = idade
-        self.nmr_de_votos = 0
-        
-    def get_votos(self):
-        return self.nmr_de_votos
-    
-    def __str__(self):
-        pass
-
 
 class Bat:
     def __init__(self, graph: sg.Graph, colour, x, field_height):
@@ -185,7 +172,7 @@ def simulador():
                         (GAMEPLAY_SIZE[0], 0),
                         background_color=BACKGROUND_COLOR,
                         key='-GRAPH-')],
-              [sg.Button('Voltar ao Menu', key="-MENU-")]]
+                   [sg.Button('Voltar ao Menu', key="-MENU-")]]
 
     main_menu_layout = [[sg.Text("Simulador de Urna Eletrônica", font="Courier 40")],
                         [sg.Text("", font="Courier 12")],
