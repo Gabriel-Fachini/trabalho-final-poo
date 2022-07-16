@@ -18,8 +18,8 @@ def menu_inicial():
                         (0, TAMANHO_DE_TELA[1]),
                         (TAMANHO_DE_TELA[0], 0),
                         background_color=COR_DE_FUNDO,
-                        key='-GRAPH-')],
-                     [sg.Button('Voltar ao Menu', key="-MENU-")]]
+                        key='-GRAPH-')]]
+                     #[sg.Button('Voltar ao Menu', key="-MENU-")]]
     
     layout_menu = [[sg.Text("Simulador de Urna Eletrônica", font="Courier 40", size=(None, 2))],
                    #[sg.Image(r"C:\Users\Gusta\OneDrive\Área de Trabalho\P.O.O\Proj_Final\src\assets\foto_urna.png")],
@@ -66,6 +66,8 @@ def menu_inicial():
     while True:
         event, values = window.read()
         if event == '-QUIZ-':
+            window['-MAIN_MENU-'].update(visible=False)
+            window['-LY_MAIN_MENU-'].update(visible=True)
             Quiz(candidato1, candidato2, candidato3, candidato4, TAMANHO_DE_TELA, COR_DE_FUNDO)
         if (event == sg.WIN_CLOSED or event == '-QUIT-') and sg.popup_yes_no('Você realmente deseja sair?') == 'Yes':
             break
