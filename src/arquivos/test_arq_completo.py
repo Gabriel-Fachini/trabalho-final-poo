@@ -1,10 +1,11 @@
 import PySimpleGUI as sg
 import datetime
+from PIL import Image, ImageTk
 
 from sympy import content
 
 TAMANHO_DE_TELA_MENU = (1190, 700)
-TAMANHO_DE_TELA_QUIZ = (900, 350) #350
+TAMANHO_DE_TELA_QUIZ = (900, 350)
 TAMANHO_DE_TELA_QUIZ_FINAL = (900, 450)
 
 sg.theme('GreenMono')
@@ -18,9 +19,12 @@ class Candidato():
     self.numero = numero
     self.propostas = propostas
     self.numeroVotos = 0
-
+    
+  def adicionarVoto(self):
+    self.numeroVotos = self.numeroVotos + 1
+    
   def __str__(self) -> str:
-    return '''
+        return '''
     -------------------------------------------
     Candidato {}:\n
     Idade: {}\n
@@ -30,8 +34,6 @@ class Candidato():
     -------------------------------------------
     '''.format(self.nome, self.idade, self.partido, self.numero, self.propostas)
 
-  def adicionarVoto(self):
-    self.numeroVotos = self.numeroVotos + 1
 
 #1 - Jessica, 2 - Matheus, 3 - Jefferson, 4 - Roberto
 class Quiz():
@@ -89,7 +91,7 @@ def decide_pontos(nmr_pergunta, quiz, resposta):
             quiz.pontos_cand_3 -= 1000 #impossivel ganhar
             quiz.pontos_cand_4 += 1 
         elif resposta == 'Muito Negativo':
-            quiz.pontos_cand_3 -= 1000 #impossivel ganhar
+            quiz.pontos_cand_3 -= 2000 #Muito mais impossivel ganhar
             quiz.pontos_cand_4 += 2  
         
     elif nmr_pergunta == 3:
@@ -245,8 +247,6 @@ def roda_quiz(quiz, window):
     
     while True:
         event, values = window.read()
-        print(pergunta_atual)
-        print(event)
         
         if event == '-VOLTA_MENU-':
             print("Entrei nesse")
@@ -291,25 +291,38 @@ def roda_quiz(quiz, window):
             pontuacoes=[quiz.pontos_cand_1, quiz.pontos_cand_2, quiz.pontos_cand_3, quiz.pontos_cand_4]
             pontuacoes.sort()
             resultado = pontuacoes[3]
+            size = (50, 50) #tamanho da imagem do candidato
             if(resultado == quiz.pontos_cand_1):
                 window['-NOME_CANDIDATO-'].update("Jessica Matos")
                 window['-TEXTO_CANDIDATO-'].update(quiz.texto_cand_1)
                 window['-NUMERO_CANDIDATO-'].update(quiz.candidato_1.numero)
+                im = Image.open(r'.\assets\candidato1.jpeg')
+                im = im.resize(size, resample=Image.BICUBIC)
+                window['-FOTO_CANIDATO-'].update("Matheus Bragança")
                 
             elif(resultado == quiz.pontos_cand_2):
                 window['-NOME_CANDIDATO-'].update("Matheus Bragança")
                 window['-TEXTO_CANDIDATO-'].update(quiz.texto_cand_2)
                 window['-NUMERO_CANDIDATO-'].update(quiz.candidato_2.numero)
+                im = Image.open(r'.\assets\candidato2.jpeg')
+                im = im.resize(size, resample=Image.BICUBIC)
+                window['-FOTO_CANIDATO-'].update("Matheus Bragança")
                 
             elif(resultado == quiz.pontos_cand_3):
                 window['-NOME_CANDIDATO-'].update("Jefferson Moreira")
                 window['-TEXTO_CANDIDATO-'].update(quiz.texto_cand_3)
                 window['-NUMERO_CANDIDATO-'].update(quiz.candidato_3.numero)
+                im = Image.open(r'.\assets\candidato3.jpeg')
+                im = im.resize(size, resample=Image.BICUBIC)
+                window['-FOTO_CANIDATO-'].update("Matheus Bragança")
                 
             elif(resultado == quiz.pontos_cand_4):
                 window['-NOME_CANDIDATO-'].update("Roberto Autônomo")
                 window['-TEXTO_CANDIDATO-'].update(quiz.texto_cand_4)
                 window['-NUMERO_CANDIDATO-'].update(quiz.candidato_4.numero)
+                im = Image.open(r'.\assets\candidato4.jpeg')
+                im = im.resize(size, resample=Image.BICUBIC)
+                window['-FOTO_CANIDATO-'].update("Matheus Bragança")
             
             elif event == '-VOLTA_MENU-':
                 iteracao_menu_quiz(window, 1)
@@ -371,8 +384,8 @@ def menu_inicial():
     layout_quiz_fim = [[sg.Text("Você deu match com: ", font="Courier 30", size=(None, 1)), sg.Text("", font="Courier 30", size=(None, 1), key='-NOME_CANDIDATO-')],
                     [sg.Text("", font="Courier 20", size =(55,6), key='-TEXTO_CANDIDATO-'), sg.Text("VOTE", font="Courier 25", size =(None,1))],
                     [sg.Text("Para apoiar, vote:", font="Courier 25", size =(None,1)), sg.Text("", font="Courier 25", size =(None,1), key='-NUMERO_CANDIDATO-')],
-                    [sg.Button('VOLTAR AO MENU PRINCIPAL', key='-VOLTA_MENU-', font="Courier 24", auto_size_button=True, button_color='#3065ac')],
-                    [sg.Text("", size=(None, 2))]]
+                    [sg.Button('VOLTAR AO MENU PRINCIPAL', key='-VOLTA_MENU-', font="Courier 24", auto_size_button=True, button_color='#3065ac'), sg.Image(key='-FOTO_CANDIDATO-')],
+                    [sg.Text("", size=(None, 1))]]
     
     #layout_urna = []
     
