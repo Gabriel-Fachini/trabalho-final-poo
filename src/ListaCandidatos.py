@@ -32,6 +32,7 @@ def rodaLista(listaCandidatos, window):
   mudaCandidato(0, window, listaCandidatos)
   while True:
     eventos, valores = window.read()
+    print(eventos)
     if eventos == '-ANT-':
       if pagina == 0:
         pagina = 3
@@ -49,5 +50,3 @@ def rodaLista(listaCandidatos, window):
 
     if eventos == sg.WINDOW_CLOSED:
       break
-
-  window.close()

@@ -106,6 +106,7 @@ def main():
                             [sg.Text("presidente do Brasil.", font="Courier 20", size =(None,2))],
                             [sg.Text("Aperte em 'SIMULAÇÃO DE VOTOS' para simular 1 MILHÃO de votos", font="Courier 20", size =(None,1))],
                             [sg.Text("aleatoriamente de maneira automática.", font="Courier 20", size =(None,2))],
+                            [sg.Text("Aperte em 'CANDIDATOS' para visualizar todos os candidatos", font="Courier 20", size =(None,3))],
                             [sg.Text("Aperte em 'QUIZ' para responder a um questionário que, ao final, indicará", font="Courier 20", size =(None,1))],
                             [sg.Text("qual o candidato que mais combina com você", font="Courier 20", size =(None,3))],
                             [sg.Button("URNA REAL", key='-VOTO_UNICO-', font="Courier 24"),
