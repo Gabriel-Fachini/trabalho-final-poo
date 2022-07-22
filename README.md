@@ -9,10 +9,6 @@ Gabriel Fernando Machado Fachini - 11953481<br>
 Gustavo Sampaio Lima -12623992<br>
 Thierry de Souza Araújo - 12681094<br>
 
-## Link para o projeto no <a href='https://www.figma.com/file/0OedXLo0HDcLNOUwCv5g6o/Untitled?node-id=4%3A148'>FIGMA</a>
-
----
-
 1. `Aplicação`<br>
 *Área*: Eleições<br>
 *Projeto*: Implementação de um programa que simula uma urna eletrônica com interface gráfica e reproduzir uma votação aleatória automática.
