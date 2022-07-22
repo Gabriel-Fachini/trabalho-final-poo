@@ -1,0 +1,2 @@
+PYSimpleGUI
+sympy

@@ -21,7 +21,7 @@ def funcionalidade1(listaCandidatos: list):
 
 def funcionalidade2(listaCandidatos: list):
   # for pessoa in range(212678954): # População do brasil
-  for pessoa in range(1000):
+  for pessoa in range(10000):
     index = random.randrange(0, 5)
     listaCandidatos[index].numeroVotos = listaCandidatos[index].numeroVotos + 1
 
@@ -39,9 +39,11 @@ def funcionalidade2(listaCandidatos: list):
     print('Houve um empate! Empataram os candidatos:')
     for candidato in vencedores:
       print(candidato)
+    return None
   else:
     print('O vencedor foi:')
     print(vencedores[0])
+    return vencedores[0]
 
 
 def funcionalidade3(listaCandidatos: list):
