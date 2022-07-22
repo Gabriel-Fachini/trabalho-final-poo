@@ -73,7 +73,6 @@ def main():
 
   while True:
     eventos, valores = janela.read()
-    print(eventos, valores)
 
     if eventos == '-CONFIRMA-':
       voto = valores['-NUMERO_CANDIDATO-']
