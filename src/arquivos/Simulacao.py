@@ -3,8 +3,84 @@ import random
 from Candidato import Candidato
 TAMANHO_DE_TELA = (1000, 500)
 
-def simulacaoVotacao(listaCandidatos: list):
-  # for pessoa in range(212678954): # População do brasil
+class Simulacao():
+    def __init__(self, candidato1, candidato2, candidato3, candidato4, window):
+        self.lista_candidatos = [candidato1, candidato2, candidato3, candidato4]
+        roda_simulacao(self, window)
+        
+def roda_simulacao(simulacao, window):
+
+    iteracoes_simulacao(window, 0)
+    aux = 0
+    while True:
+        eventos, valores = window.read()
+        
+        if eventos == '-INICIAR_SIMULACAO-':
+            window['-SIMULACAO_LY_INICIO-'].update(visible=False)
+            window['-SIMULACAO_LY_FINAL-'].update(visible=True)
+            vencedor = simulacaoVotacao(simulacao.lista_candidatos)
+            if vencedor != None:
+                window['-NOME-'].update('Nome:' + vencedor.nome)
+                window['-IDADE-'].update('Idade:' + str(vencedor.idade))
+                window['-NUMERO-'].update('Numero:' + str(vencedor.numero))
+                window['-NUMERO_VOTOS-'].update('Numero de votos:' + str(vencedor.numeroVotos))
+            
+            if eventos =='-VOLTA_MENU-7':
+                iteracoes_simulacao(window, 3)
+                break
+            
+        if eventos == '-4_ANOS_DEPOIS-':
+            window['-NOME_CANDIDATO_HISTORIA-'].update(vencedor.nome)
+            historia = texto_historia(vencedor.numero)
+            window['-HISTORIA_DA_SIMULACAO-'].update(historia)
+                
+            iteracoes_simulacao(window, 1)
+                
+        if eventos =='-VOLTA_MENU-8':
+            iteracoes_simulacao(window, 4)
+            break
+        
+        if eventos =='-VOLTA_MENU-6':
+            iteracoes_simulacao(window, 2)
+            break
+        
+        if eventos =='-VOLTA_MENU-7':
+            iteracoes_simulacao(window, 3)
+            break
+
+        if eventos == sg.WINDOW_CLOSED:
+            aux = 1
+            break
+
+    if aux == 1:  
+        window.close()
+    
+def iteracoes_simulacao(window, troca):
+    #TROCA
+    #0 -> menu para comeco da simulacao
+    #1 -> simulacao para historia
+    #2 -> do comeco da simulacao para menu
+    #3 -> da simulacao para menu
+    #4 -> da historia para menu
+    
+    if troca == 0:
+        window['-MENU_LY-'].update(visible=False)
+        window['-SIMULACAO_LY_INICIO-'].update(visible=True)
+    elif troca == 1:
+        window['-SIMULACAO_LY_FINAL-'].update(visible=False)
+        window['-SIMULACAO_HISTORIA-'].update(visible=True)
+    elif troca == 2:
+        window['-SIMULACAO_LY_INICIO-'].update(visible=False)
+        window['-MENU_LY-'].update(visible=True)
+    elif troca == 3:
+        window['-SIMULACAO_LY_FINAL-'].update(visible=False)
+        window['-MENU_LY-'].update(visible=True)
+    elif troca == 4:
+        window['-SIMULACAO_HISTORIA-'].update(visible=False)
+        window['-MENU_LY-'].update(visible=True)
+    
+def simulacaoVotacao(listaCandidatos):
+      # for pessoa in range(212678954): # População do brasil
   for pessoa in range(1000000):
     index = random.randrange(0, 3)
     listaCandidatos[index].numeroVotos = listaCandidatos[index].numeroVotos + 1
@@ -27,88 +103,17 @@ def simulacaoVotacao(listaCandidatos: list):
   else:
     return vencedores[0]
 
-def main():
-  #sg.theme('Dark Blue 3')
-
-  sg.theme('GreenMono')
-
-  listaCandidatos = []
-  listaCandidatos.append(Candidato("Jessica Matos", 35, "Partido dos Negacionistas Gigantes (PNG)", 14,
-                           ["Acabar com faculdades públicas",
-                            "Vacinas não poderão ser exigidas em locais públicos e/ou privados",
-                            "Apoio federal para pessoas com mais de 1.95 de altura"]))
-  listaCandidatos.append(Candidato("Matheus Bragança", 43, "Partido dos Lavadores Aquafóbicos (PLA)", 19,
-                           ["Diminuição de impostos nas lavagens a seco",
-                            "Aumento dos impostos na água",
-                            "Multa de R$3523,24 para quem for flagrado tomando mais de um banho por semana"]))
-  listaCandidatos.append(Candidato("Jefferson Moreira", 42, "Partido dos Adoradores de Tênis de Mesa", 12,
-                           ["Tênis de mesa em cada escola pública é lei",
-                            "Bolsa Raquete para cargos públicos",
-                            "Taxas de importação de madeira caem 49%"]))
-  listaCandidatos.append(Candidato("Roberto Autônomo", 51, "Partido dos Idealizadores Atômicos", 16,
-                           ["Brasil entrará no Tratado Urgente para Proliferação de Armas Nucleares (TUPAN) imediatamente",
-                            "Investimento de 78%/ do PIB Brasileiro em armas nucleares",
-                            "Curso básico de atomística será exigido para entrada na escola infantil e fundamental"]))
-
-  layoutInterno = [
-    [sg.Graph(TAMANHO_DE_TELA,
-    (0, TAMANHO_DE_TELA[1]),
-    (TAMANHO_DE_TELA[0], 0),
-    key='-GRAPH-')]
-  ]
-
-  layoutIniciarSimulacao = [
-    [sg.Text('Para simular, aperte em iniciar.', font="Courier 24")],
-    [sg.Text("", size=(None, 8))],
-    [sg.Button('Iniciar', key='-INICIAR_SIMULACAO-', font="Courier 24")],
-    [sg.Text("", size=(None, 8))],
-    [sg.Button('<- Voltar', key='-BACK_TO_MENU-', font="Courier 24")]
-  ]
-
-  layoutResultadoSimulacao = [
-    [sg.Text('Vencedor de uma simulação com 1', font='Courier 36')],
-    [sg.Text('milhão de votos aleatórios:', font='Courier 36')],
-    [sg.Text("", size=(None, 2))],
-    [sg.Text('Nome:', key='-NOME-', font='Courier 24')],
-    [sg.Text('Idade:', key='-IDADE-', font='Courier 24')],
-    [sg.Text('Numero:',key='-NUMERO-', font='Courier 24')],
-    # [sg.Text('Propostas:', key='-PROPOSTAS-',  font='Courier 24')],
-    [sg.Text('Numero de votos:', key='-NUMERO_VOTOS-',  font='Courier 24')],
-    [sg.Text("", size=(None, 4))],
-    [sg.Button('<- Voltar', key='-BACK_TO_MENU-', font="Courier 24")]
-  ]
-
-  layoutFinal = [
-    [
-      sg.pin(sg.Column(layoutIniciarSimulacao, key='-SIMULACAO-', size=(600, 500), element_justification='center', expand_x=True)),
-      sg.pin(sg.Column(layoutResultadoSimulacao, key='-RESULTADO-', size=TAMANHO_DE_TELA, element_justification='left', visible=False)),
-      sg.pin(sg.Column(layoutInterno, visible=False, element_justification='center'))
-    ]
-  ]
-
-  janela = sg.Window('Simulador de Urna Eletrônica - SIMULAÇÃO VOTAÇÃO', layoutFinal, finalize=True)
-
-  while True:
-    eventos, valores = janela.read()
-
-    if eventos == '-INICIAR_SIMULACAO-':
-      janela['-SIMULACAO-'].update(visible=False)
-      janela['-RESULTADO-'].update(visible=True)
-      vencedor = simulacaoVotacao(listaCandidatos)
-      if vencedor != None:
-        janela['-NOME-'].update('Nome:' + vencedor.nome)
-        janela['-IDADE-'].update('Idade:' + str(vencedor.idade))
-        janela['-NUMERO-'].update('Numero:' + str(vencedor.numero))
-        # janela['-PROPOSTAS-'].update(vencedor.propostas)
-        janela['-NUMERO_VOTOS-'].update('Numero de votos:' + str(vencedor.numeroVotos))
-
-
-    if eventos == '-BACK_TO_MENU-' or eventos =='-BACK_TO_MENU-0':
-      break
-
-    if eventos == sg.WINDOW_CLOSED:
-      break
-
-  janela.close()
-
-main()
+def texto_historia(nmr_candidato):
+    nmr_candidato = int(nmr_candidato)
+    historia = ''
+    
+    if nmr_candidato == 14:
+        historia = "O país deixou de ser referência na área de pesquisa, além de passar a ser muito mal visto internacionalmente pela volta de diversas epidemias que eram dadas como controladas."
+    elif nmr_candidato == 19:
+       historia = "O país manteve seu nível de avanço, sem grandes mudanças, além de alcançar um padrão europeu de higiene."
+    elif nmr_candidato == 12:
+        historia = "No final de seu mandato, com o alto investimento o país se tornou um expoente no tênis de mesa, conquistando os últimos 2 campeonatos mundiais em todas as categorias. Nas outras diversas áreas, não houve grandes avanços."
+    elif nmr_candidato == 16:
+        historia = "Com o exacerbado investimento na segurança, principalmente na defesa nuclear, o Brasil passou a ser mal visto pelas potências e se tornou aliada de países como Coréia do Norte e Rússia, fazendo a nação sofrer e entrarem em segundo plano nos ações governamentais."
+        
+    return historia

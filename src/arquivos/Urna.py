@@ -15,7 +15,6 @@ def roda_urna(urna, window):
     
     while True:
         eventos, valores = window.read()
-        print(eventos, valores)
 
         if eventos == '-CONFIRMA-':
             voto = valores['-NUMERO_CANDIDATO-1']

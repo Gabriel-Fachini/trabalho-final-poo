@@ -38,8 +38,6 @@ def roda_quiz(quiz, window):
     
     while True:
         event, values = window.read()
-        print(pergunta_atual)
-        print(event)
         
         if event == '-VOLTA_MENU-' or event =='-VOLTA_MENU-0':
             iteracao_menu_quiz(window, 1)
@@ -74,7 +72,6 @@ def roda_quiz(quiz, window):
                 break
             
             elif event == sg.WIN_CLOSED:
-                print("Entrei_sair 1")
                 aux = 1
                 break
             
@@ -283,8 +280,8 @@ def armazena_perguntas():
         "Q4. Você concorda que a falta de água é um problema crítico e mundial?",
         "Q5. Você costuma tomar muitos banhos na semana?",
         "Q6. Você concorda que a ciência deve ser o cerne do ensino público?",
-        "Q7. Você concorda que o as universidades públicas servem para balbúrdia dos estudantes?",
-        "Q8. Você possui mais de 1,95 de altura?",
+        "Q7. Você concorda que as universidades públicas servem para balbúrdia dos estudantes?",
+        "Q8. Você possui mais de 1,95m de altura?",
         "Q9. Você acha as taxas de importações abusivas?",
         "Q10. Você concorda que o governo se intromete demais em nossas vidas?",
     ]

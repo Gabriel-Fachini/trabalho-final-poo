@@ -3,12 +3,16 @@ import datetime
 from Candidato import Candidato
 from Quiz import Quiz
 from Urna import Urna
+from Simulacao import Simulacao
 
 TAMANHO_DE_TELA_MENU = (1190, 700)
 TAMANHO_DE_TELA_QUIZ = (900, 350)
 TAMANHO_DE_TELA_QUIZ_FINAL = (900, 450)
 TAMANHO_DE_TELA_URNA = (800, 600)
 TAMANHO_DE_TELA_URNA_CANDIDATO = (1200, 700)
+TAMANHO_DE_TELA_SIMULACAO = (600, 500)
+TAMANHO_DE_TELA_SIMULACAO_FINAL = (1000, 500)
+TAMANHO_DE_TELA_SIMULACAO_HISTORIA = (1200, 500)
 
 sg.theme('GreenMono')
 
@@ -50,7 +54,6 @@ def main():
                     [sg.Text("Proposta 1 = ", font="Courier 25", size=(13, 2)), sg.Text("", font="Courier 25", key='-P1_CANDIDATO_URNA-', size=(45, 2))],
                     [sg.Text("Proposta 2 = ", font="Courier 25", size=(13, 2)), sg.Text("", font="Courier 25", key='-P2_CANDIDATO_URNA-', size=(45, 2))],
                     [sg.Text("Proposta 3 = ", font="Courier 25", size=(13, 2)), sg.Text("", font="Courier 25", key='-P3_CANDIDATO_URNA-', size=(45, 2))],
-                    #[sg.Button] #fazendo botao para voltar do candidato para a urna
                     [sg.Button("VOLTAR PARA A URNA", font="Courier 24", size=(18,1) ,key="-VOLTA_URNA-")],
                     [sg.Button('VOLTAR AO MENU PRINCIPAL', key='-VOLTA_MENU-', font="Courier 24", auto_size_button=True, button_color='#3065ac')]
                     ]
@@ -69,7 +72,31 @@ def main():
         [sg.Button('VOLTAR AO MENU PRINCIPAL', key='-VOLTA_MENU-', font="Courier 24", button_color='#3065ac')]
         ]
     
-    #layout_simulacao = []
+    layout_simulacao_inicio = [
+        [sg.Text('Para simular, aperte em iniciar.', font="Courier 24")],
+        [sg.Text("", size=(None, 8))],
+        [sg.Button('Iniciar', key='-INICIAR_SIMULACAO-', font="Courier 24")],
+        [sg.Text("", size=(None, 8))],
+        [sg.Button('VOLTAR AO MENU PRINCIPAL', key='-VOLTA_MENU-', font="Courier 24", button_color='#3065ac')]
+    ]
+    
+    layout_simulacao_final = [
+        [sg.Text('Vencedor de uma simulação com 1', font='Courier 36')],
+        [sg.Text('milhão de votos aleatórios:', font='Courier 36')],
+        [sg.Text("", size=(None, 2))],
+        [sg.Text('Nome:', key='-NOME-', font='Courier 24')],
+        [sg.Text('Idade:', key='-IDADE-', font='Courier 24')],
+        [sg.Text('Numero:',key='-NUMERO-', font='Courier 24')],
+        [sg.Text('Numero de votos:', key='-NUMERO_VOTOS-',  font='Courier 24')],
+        [sg.Text("", size=(None, 4))],
+        [sg.Button('VOLTAR AO MENU PRINCIPAL', key='-VOLTA_MENU-', font="Courier 24", button_color='#3065ac'), sg.Text("               "), sg.Button("4 ANOS DEPOIS", font="Courier 24", key='-4_ANOS_DEPOIS-')]
+    ]
+    
+    layout_simulacao_historia = [
+        [sg.Text("Após 4 anos de ", font="Courier 32"), sg.Text("", key='-NOME_CANDIDATO_HISTORIA-', font="Courier 32")],
+        [sg.Text("", size=(60, 7), key='-HISTORIA_DA_SIMULACAO-', font="Courier 24")],
+        [sg.Button('VOLTAR AO MENU PRINCIPAL', key='-VOLTA_MENU-', font="Courier 24", button_color='#3065ac')]
+    ]
     
     layout_menu_inicial = [[sg.Text("Simulador de Urna Eletrônica", font="Courier 40", size=(None, 1))],
                             [sg.Text("-- Instruções de uso --", font="Courier 25", size =(None,2))],
@@ -90,8 +117,11 @@ def main():
                sg.pin(sg.Column(layout_quiz_fim, key='-QUIZ_LY_FIM-', size=TAMANHO_DE_TELA_QUIZ_FINAL, element_justification='left', visible=False, expand_x=True, expand_y=True)),
                sg.pin(sg.Column(layout_urna, key='-URNA_LY-', size=TAMANHO_DE_TELA_URNA, element_justification='center', visible=False, expand_x=True, expand_y=True)),
                sg.pin(sg.Column(layout_urna_candidato, key='-URNA_LY_CANDIDATO-', size=TAMANHO_DE_TELA_URNA_CANDIDATO, element_justification='left', visible=False, expand_x=True, expand_y=True)),
-               sg.pin(sg.Column(layout_urna_confirmacao, key='-URNA_LY_FIM-', size=TAMANHO_DE_TELA_URNA_CANDIDATO, visible=False, expand_x=True, expand_y=True))]]
-               #sg.pin(sg.Column(layout_simulacao, key='-SIMULACAO_LY-', size=TAMANHO_DE_TELA, element_justification='center', visible=False))]]
+               sg.pin(sg.Column(layout_urna_confirmacao, key='-URNA_LY_FIM-', size=TAMANHO_DE_TELA_URNA_CANDIDATO, visible=False, expand_x=True, expand_y=True)),
+               sg.pin(sg.Column(layout_simulacao_inicio, key='-SIMULACAO_LY_INICIO-', size=TAMANHO_DE_TELA_SIMULACAO, element_justification='center', visible=False)),
+               sg.pin(sg.Column(layout_simulacao_final, key='-SIMULACAO_LY_FINAL-', size=TAMANHO_DE_TELA_SIMULACAO_FINAL, visible=False)),
+               sg.pin(sg.Column(layout_simulacao_historia, key='-SIMULACAO_HISTORIA-', size=TAMANHO_DE_TELA_SIMULACAO_HISTORIA, visible=False))]
+            ]
 
     window = sg.Window('Simulador de Urna Eletrônica', layout, finalize=True)
     
@@ -118,7 +148,7 @@ def main():
     
     start = datetime.datetime.now()
     last_post_read_time = start
-    
+    aux = 0
     #Inicio dos eventos da janela inicial
     while True:
         pre_read_time = datetime.datetime.now()
@@ -131,12 +161,14 @@ def main():
             Quiz(candidato1, candidato2, candidato3, candidato4, window)
         elif event == '-VOTO_UNICO-':
             Urna(candidato1, candidato2, candidato3, candidato4, window)
-        if event == '-SIMULACAO-':
-            pass
+        if event == '-SIMULA_VOTOS-':
+            Simulacao(candidato1, candidato2, candidato3, candidato4, window)
         elif event == sg.WIN_CLOSED or event == '-QUIT-':
+            aux = 1
             break
-        
-    window.close()
+    
+    if aux == 1:  
+        window.close()
 
 if __name__ == '__main__':
     main()
