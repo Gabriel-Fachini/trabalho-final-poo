@@ -55,7 +55,11 @@ def main():
     key='-GRAPH-')]
   ]
 
+  # teste = Image.open("urna.png")
+  teste = open('urna.png', 'r')
+
   layoutIniciarSimulacao = [
+    [sg.Image('urna.png', size=(300, 300))],
     [sg.Text('Para simular, aperte em iniciar.', font="Courier 24")],
     [sg.Text("", size=(None, 8))],
     [sg.Button('Iniciar', key='-INICIAR_SIMULACAO-', font="Courier 24")],
