@@ -27,23 +27,6 @@ def simulacaoVotacao(listaCandidatos: list):
   else:
     return vencedores[0]
 
-class Simulacao:
-  def rodaSimulacao(TAMANHO_DE_TELA):
-    layout_interno = [[sg.Graph(TAMANHO_DE_TELA,
-                        (0, TAMANHO_DE_TELA[1]),
-                        (TAMANHO_DE_TELA[0], 0),
-                        key='-GRAPH-')]]
-
-    #Comecando da primeira pergunta
-    first_layout = [
-      [sg.Text('Para simular a votação, basta apertar', font="Courier 34", size =(None,1))],
-      [sg.Text('o botão:', font="Courier 34", size =(None,1))],
-      [sg.Button('Iniciar', key='-INICIAR-', font="Courier 24", tooltip='Aperte aqui para confirmar seu voto')],
-    ]
-
-    layout = [[sg.pin(sg.Column(first_layout, key='-FIRST_LAYOUT-', size=TAMANHO_DE_TELA, element_justification='center', expand_x=True)),
-            sg.pin(sg.Column(layout_interno, key='-LAYOUT_INTERNO-', visible=False))]]
-
 def main():
   sg.theme('Dark Blue 3')
 
