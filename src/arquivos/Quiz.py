@@ -1,7 +1,6 @@
 import PySimpleGUI as sg
-#from PIL import Image, ImageTk
+from PIL import Image
 import os
-
 class Quiz():
     def __init__(self, candidato1, candidato2, candidato3, candidato4, menu_layout):
         self.candidato_1 = candidato1
@@ -85,7 +84,7 @@ def roda_quiz(quiz, window):
             pontuacoes.sort()
             resultado = pontuacoes[3]
             
-            diretorio = os. getcwd()
+            
             
             #size = (50, 50) #tamanho da imagem do candidato
             if(resultado == quiz.pontos_cand_1):
@@ -93,32 +92,40 @@ def roda_quiz(quiz, window):
                 window['-TEXTO_CANDIDATO-'].update(quiz.texto_cand_1)
                 window['-NUMERO_CANDIDATO-'].update(quiz.candidato_1.numero)
                 
-                caminho_foto = diretorio + "\images\candidato1_R.jpeg"
-                window['-FOTO_CANDIDATO-'].update(source=caminho_foto)
+                nome_arq = ".\images\candidato1_R.jpeg"
+                if os.path.exists(nome_arq):
+                    img = Image.open(nome_arq)
+                    window['-FOTO_CANDIDATO-'].update(img)
                 
             elif(resultado == quiz.pontos_cand_2):
                 window['-NOME_CANDIDATO-'].update("Matheus Bragança")
                 window['-TEXTO_CANDIDATO-'].update(quiz.texto_cand_2)
                 window['-NUMERO_CANDIDATO-'].update(quiz.candidato_2.numero)
                 
-                caminho_foto = diretorio + "\images\candidato2_R.jpeg"
-                window['-FOTO_CANDIDATO-'].update(source=caminho_foto)
+                nome_arq = ".\images\candidato2_R.jpeg"
+                if os.path.exists(nome_arq):
+                    img = Image.open(nome_arq)
+                    window['-FOTO_CANDIDATO-'].update(img)
                 
             elif(resultado == quiz.pontos_cand_3):
                 window['-NOME_CANDIDATO-'].update("Jefferson Moreira")
                 window['-TEXTO_CANDIDATO-'].update(quiz.texto_cand_3)
                 window['-NUMERO_CANDIDATO-'].update(quiz.candidato_3.numero)
                 
-                caminho_foto = diretorio + "\images\candidato3_R.jpeg"
-                window['-FOTO_CANDIDATO-'].update(source=caminho_foto)
+                nome_arq = ".\images\candidato3_R.jpeg"
+                if os.path.exists(nome_arq):
+                    img = Image.open(nome_arq)
+                    window['-FOTO_CANDIDATO-'].update(img)
                 
             elif(resultado == quiz.pontos_cand_4):
                 window['-NOME_CANDIDATO-'].update("Roberto Autônomo")
                 window['-TEXTO_CANDIDATO-'].update(quiz.texto_cand_4)
                 window['-NUMERO_CANDIDATO-'].update(quiz.candidato_4.numero)
                 
-                caminho_foto = diretorio + "\images\candidato4_R.jpeg"
-                window['-FOTO_CANDIDATO-'].update(source=caminho_foto)
+                nome_arq = ".\images\candidato4_R.jpeg"
+                if os.path.exists(nome_arq):
+                    img = Image.open(nome_arq)
+                    window['-FOTO_CANDIDATO-'].update(img)
             
             elif event == '-VOLTA_MENU-':
                 iteracao_menu_quiz(window, 1)
@@ -275,11 +282,11 @@ def armazena_perguntas():
     perguntas = [
         "Q1. O que você acha da atual situação do país?",
         "Q2. Você concorda que o esporte é essencial para todos?",
-        "Q3. Você concorda com a política internacional do Brasil diante as guerras?",
+        "Q3. Você concorda com a política internacional do Brasil diante das guerras?",
         "Q4. Você concorda que a falta de água é um problema crítico e mundial?",
         "Q5. Você costuma tomar muitos banhos na semana?",
         "Q6. Você concorda que a ciência deve ser o cerne do ensino público?",
-        "Q7. Você concorda que o as universidades públicas servem para balbúrida dos estudantes?",
+        "Q7. Você concorda que o as universidades públicas servem para balbúrdia dos estudantes?",
         "Q8. Você possui mais de 1,95 de altura?",
         "Q9. Você acha as taxas de importações abusivas?",
         "Q10. Você concorda que o governo se intromete demais em nossas vidas?",
@@ -305,7 +312,7 @@ def texto_candidato(nmr_candidato):
         texto = ""
         if nmr_candidato == 1:
             texto = "Você se mostrou uma pessoa altamente preocupada em como o governo está atuando em nossas vidas.\n"
-            texto += "A Jéssica Matos, do PNG (Partido dos Nacionalistas Gigantes), concorda com suas necessidades e também busca mudança!"
+            texto += "A Jéssica Matos, do PNG (Partido dos Negacionistas Gigantes), concorda com suas necessidades e também busca mudança!"
         elif nmr_candidato == 2:
             texto = "A água vem se tornando um ponto crítico nos dias atuais.Você concorda com Matheus Bragança e \
             busca melhorar a situação hídrica do nosso país, a frente do Partido dos Lavadores Aquafóbicos\
