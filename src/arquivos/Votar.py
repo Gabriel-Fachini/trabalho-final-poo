@@ -13,7 +13,6 @@ def verificaNumeroCandidatoExiste(listaCandidatos: list, voto: int) -> bool:
   return False
 
 def main():
-  sg.theme('Dark Blue 3')
   voto = ''
 
   listaCandidatos = []
@@ -74,6 +73,7 @@ def main():
 
   while True:
     eventos, valores = janela.read()
+    print(eventos, valores)
 
     if eventos == '-CONFIRMA-':
       voto = valores['-NUMERO_CANDIDATO-']

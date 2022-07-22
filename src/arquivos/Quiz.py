@@ -1,6 +1,7 @@
 import PySimpleGUI as sg
 from PIL import Image
 import os
+
 class Quiz():
     def __init__(self, candidato1, candidato2, candidato3, candidato4, menu_layout):
         self.candidato_1 = candidato1
@@ -40,12 +41,10 @@ def roda_quiz(quiz, window):
         print(pergunta_atual)
         print(event)
         
-        if event == '-VOLTA_MENU-':
-            print("Entrei nesse")
+        if event == '-VOLTA_MENU-' or event =='-VOLTA_MENU-0':
             iteracao_menu_quiz(window, 1)
             break
         elif event == sg.WIN_CLOSED:
-            print("Entrei_sair 3")
             aux = 1
             break
         
@@ -83,7 +82,6 @@ def roda_quiz(quiz, window):
             pontuacoes=[quiz.pontos_cand_1, quiz.pontos_cand_2, quiz.pontos_cand_3, quiz.pontos_cand_4]
             pontuacoes.sort()
             resultado = pontuacoes[3]
-            
             
             
             #size = (50, 50) #tamanho da imagem do candidato
@@ -132,7 +130,6 @@ def roda_quiz(quiz, window):
                 break
             
             elif event == sg.WIN_CLOSED:
-                print("Entrei_sair 2")
                 aux = 1
                 break
             
