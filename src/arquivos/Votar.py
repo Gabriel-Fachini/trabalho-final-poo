@@ -13,7 +13,6 @@ def verificaNumeroCandidatoExiste(listaCandidatos: list, voto: int) -> bool:
   return False
 
 def main():
-  sg.theme('Dark Blue 3')
   voto = ''
 
   listaCandidatos = []

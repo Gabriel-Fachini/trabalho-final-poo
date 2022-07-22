@@ -28,7 +28,9 @@ def simulacaoVotacao(listaCandidatos: list):
     return vencedores[0]
 
 def main():
-  sg.theme('Dark Blue 3')
+  #sg.theme('Dark Blue 3')
+
+  sg.theme('GreenMono')
 
   listaCandidatos = []
   listaCandidatos.append(Candidato("Jessica Matos", 35, "Partido dos Negacionistas Gigantes (PNG)", 14,
